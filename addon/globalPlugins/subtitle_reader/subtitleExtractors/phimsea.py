@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
@@ -9,50 +9,50 @@ from logHandler import log
 
 class Phimsea(SubtitleExtractor):
 	info = {
-		'name': 'PhimSea',
-		'url': 'https://phimsea.com/',
-		'status': SupportStatus.supported,
+		"name": "PhimSea",
+		"url": "https://phimsea.com/",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = ''
-	url = r'.*phimsea\.com/watch/.*'
-	PLAYER_ANCESTOR_CLASSES = ('vjs-tech', 'video-js')
-	PLAYER_ANCESTOR_TAGS = ('media-player',)
-	PLAYER_MARKER_CLASSES = ('video-js', 'vjs-text-track-display')
-	PLAYER_MARKER_TAGS = ('media-player', 'media-captions')
-	VIDEOJS_SUBTITLE_CLASSES = ('vjs-text-track-display',)
-	VIDSTACK_SUBTITLE_CLASSES = ('vds-captions', 'media-captions')
-	VIDSTACK_SUBTITLE_TAGS = ('media-captions',)
+	windowTitle = ""
+	url = r".*phimsea\.com/watch/.*"
+	PLAYER_ANCESTOR_CLASSES = ("vjs-tech", "video-js")
+	PLAYER_ANCESTOR_TAGS = ("media-player",)
+	PLAYER_MARKER_CLASSES = ("video-js", "vjs-text-track-display")
+	PLAYER_MARKER_TAGS = ("media-player", "media-captions")
+	VIDEOJS_SUBTITLE_CLASSES = ("vjs-text-track-display",)
+	VIDSTACK_SUBTITLE_CLASSES = ("vds-captions", "media-captions")
+	VIDSTACK_SUBTITLE_TAGS = ("media-captions",)
 	TIME_CONTROL_MARKERS = (
-		'vjs-current-time',
-		'vjs-duration',
-		'vjs-remaining-time',
-		'vjs-time-control',
-		'vjs-time-tooltip',
-		'vjs-progress-control',
+		"vjs-current-time",
+		"vjs-duration",
+		"vjs-remaining-time",
+		"vjs-time-control",
+		"vjs-time-tooltip",
+		"vjs-progress-control",
 	)
 
 	def getVideoPlayer(self):
-		log.debug('PhimSea extractor selected.')
+		log.debug("PhimSea extractor selected.")
 		focusObject = self.main.focusObject
 		videoPlayer = self.findPlayerFromAncestors(focusObject)
 		if videoPlayer:
-			log.debug('PhimSea video player found from focus ancestors.')
+			log.debug("PhimSea video player found from focus ancestors.")
 			return videoPlayer
 
 		if not self.canScanPageDocument():
-			log.debug('PhimSea page scan skipped because URL is not confirmed.')
+			log.debug("PhimSea page scan skipped because URL is not confirmed.")
 			return
 
 		document = self.findDocument(focusObject)
 		if not document:
-			log.debug('PhimSea page document not found.')
+			log.debug("PhimSea page document not found.")
 			return
 
 		videoPlayer = self.findPlayerMarker(document)
 		if videoPlayer:
-			log.debug('PhimSea video player found from page document.')
+			log.debug("PhimSea video player found from page document.")
 		else:
-			log.debug('PhimSea video player not found.')
+			log.debug("PhimSea video player not found.")
 		return videoPlayer
 
 	def findPlayerFromAncestors(self, obj):
@@ -64,13 +64,13 @@ class Phimsea(SubtitleExtractor):
 
 	def canScanPageDocument(self):
 		try:
-			url = self.main.urlObject.value or ''
+			url = self.main.urlObject.value or ""
 		except:
-			url = ''
-		return 'phimsea.com/watch/' in url
+			url = ""
+		return "phimsea.com/watch/" in url
 
 	def findDocument(self, obj):
-		return find(obj, 'parent', 'role', role('document'))
+		return find(obj, "parent", "role", role("document"))
 
 	def findPlayerMarker(self, obj):
 		return self.findDescendantMatching(
@@ -84,9 +84,9 @@ class Phimsea(SubtitleExtractor):
 		container = self.getVideojsSubtitleContainer(videoPlayer)
 		container = container or self.getVidstackSubtitleContainer(videoPlayer)
 		if container:
-			log.debug('PhimSea subtitle container found.')
+			log.debug("PhimSea subtitle container found.")
 		else:
-			log.debug('PhimSea subtitle container not found.')
+			log.debug("PhimSea subtitle container not found.")
 		return container
 
 	def getVideojsSubtitleContainer(self, obj):
@@ -94,10 +94,10 @@ class Phimsea(SubtitleExtractor):
 			return obj
 
 		container = self.findDescendantMatching(obj, classes=self.VIDEOJS_SUBTITLE_CLASSES)
-		container = container or self.findNextByClass(obj, 'vjs-text-track-display')
+		container = container or self.findNextByClass(obj, "vjs-text-track-display")
 		if not container:
 			container = self.findDescendantMatching(
-				getattr(obj, 'parent', None),
+				getattr(obj, "parent", None),
 				classes=self.VIDEOJS_SUBTITLE_CLASSES,
 			)
 		return container
@@ -111,7 +111,7 @@ class Phimsea(SubtitleExtractor):
 
 	def findNextByClass(self, obj, className):
 		try:
-			return find(obj, 'next', 'class', className)
+			return find(obj, "next", "class", className)
 		except:
 			return
 
@@ -179,11 +179,11 @@ class Phimsea(SubtitleExtractor):
 		return self.hasAnyClass(obj, classes) or self.hasAnyTag(obj, tags)
 
 	def hasAnyClass(self, obj, classes):
-		value = self.getObjectAttribute(obj, 'class')
+		value = self.getObjectAttribute(obj, "class")
 		return any(className in value for className in classes)
 
 	def hasAnyTag(self, obj, tags):
-		value = self.getObjectAttribute(obj, 'tag').lower()
+		value = self.getObjectAttribute(obj, "tag").lower()
 		return any(value == tagName for tagName in tags)
 
 	def getObjectKey(self, obj):
@@ -193,9 +193,9 @@ class Phimsea(SubtitleExtractor):
 			return id(obj)
 
 	def getObjectAttribute(self, obj, attributeName):
-		value = ''
+		value = ""
 		try:
-			value = getattr(obj, attributeName, '') or ''
+			value = getattr(obj, attributeName, "") or ""
 		except:
 			pass
 
@@ -203,9 +203,9 @@ class Phimsea(SubtitleExtractor):
 			return str(value)
 
 		try:
-			return str(obj.IA2Attributes.get(attributeName, '') or '')
+			return str(obj.IA2Attributes.get(attributeName, "") or "")
 		except:
-			return ''
+			return ""
 
 	def getSubtitle(self):
 		obj = self.main.subtitleContainer
@@ -216,8 +216,8 @@ class Phimsea(SubtitleExtractor):
 		seenTexts = set()
 		self.collectSubtitleText(obj, texts, seenTexts)
 		if not texts:
-			return ''
-		return ' | \r\n'.join(texts) + ' | \r\n'
+			return ""
+		return " | \r\n".join(texts) + " | \r\n"
 
 	def collectSubtitleText(self, obj, texts, seenTexts):
 		for current in self.walkSubtree(obj, 120):
@@ -232,10 +232,7 @@ class Phimsea(SubtitleExtractor):
 		limit = 20
 		while current and limit > 0:
 			limit -= 1
-			value = (
-				self.getObjectAttribute(current, 'class') + ' ' +
-				self.getObjectAttribute(current, 'id')
-			)
+			value = self.getObjectAttribute(current, "class") + " " + self.getObjectAttribute(current, "id")
 			if any(marker in value for marker in self.TIME_CONTROL_MARKERS):
 				return True
 			if self.getObjectKey(current) == self.getObjectKey(subtitleContainer):
@@ -248,9 +245,9 @@ class Phimsea(SubtitleExtractor):
 
 	def getSubtitleObjectName(self, obj):
 		try:
-			text = obj.name or ''
+			text = obj.name or ""
 		except:
-			return ''
+			return ""
 
-		text = text.replace(u'\u200b', '').strip()
+		text = text.replace("\u200b", "").strip()
 		return text

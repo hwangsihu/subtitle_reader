@@ -1,30 +1,30 @@
-#coding=utf-8
+# coding=utf-8
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
-from ..compatible import role
+
 
 class WKMediaCommons(SubtitleExtractor):
 	info = {
-		'name': 'WKMediaCommons',
-		'url': 'https://commons.wikimedia.org/',
-		'status': SupportStatus.supported,
+		"name": "WKMediaCommons",
+		"url": "https://commons.wikimedia.org/",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = '.+ - Wikimedia Commons'
+	windowTitle = ".+ - Wikimedia Commons"
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		return find(obj, 'parent', 'id', 'mwe_player_0')
-	
+		return find(obj, "parent", "id", "mwe_player_0")
+
 	def getSubtitleContainer(self):
 		videoPlayer = self.main.videoPlayer
 		appName = videoPlayer.appModule.appName
-		return getattr(self, appName + 'GetSubtitleContainer')()
-	
+		return getattr(self, appName + "GetSubtitleContainer")()
+
 	def chromeGetSubtitleContainer(self):
 		obj = self.main.videoPlayer
 		obj = obj.firstChild
-		return find(obj, 'next', 'class', 'vjs-text-track-display')
-	
+		return find(obj, "next", "class", "vjs-text-track-display")
+
 	def firefoxGetSubtitleContainer(self):
 		return self.chromeGetSubtitleContainer()
-	

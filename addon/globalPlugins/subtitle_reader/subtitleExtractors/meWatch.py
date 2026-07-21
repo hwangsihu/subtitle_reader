@@ -1,36 +1,34 @@
-#coding=utf-8
+# coding=utf-8
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
-from ..compatible import role
 
-from logHandler import log
 
 class MeWatch(SubtitleExtractor):
 	info = {
-		'name': 'MeWatch',
-		'url': 'https://www.mewatch.sg/',
-		'status': SupportStatus.supported,
+		"name": "MeWatch",
+		"url": "https://www.mewatch.sg/",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = '.+ - mewatch'
+	windowTitle = ".+ - mewatch"
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		videoPlayer = find(obj, 'parent', 'class', 'player', True)
+		videoPlayer = find(obj, "parent", "class", "player", True)
 		return videoPlayer
-	
+
 	def getSubtitleContainer(self):
 		videoPlayer = self.main.videoPlayer
 		appName = videoPlayer.appModule.appName
-		return getattr(self, appName + 'GetSubtitleContainer')()
-	
+		return getattr(self, appName + "GetSubtitleContainer")()
+
 	def chromeGetSubtitleContainer(self):
 		container = self.main.videoPlayer
 		container = container.firstChild.firstChild.next.firstChild.firstChild.next
 		return container
-	
+
 	def firefoxGetSubtitleContainer(self):
 		pass
-	
+
 	def getSubtitle(self):
 		return super(MeWatch, self).getSubtitle()
-	

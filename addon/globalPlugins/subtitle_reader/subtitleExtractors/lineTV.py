@@ -1,26 +1,26 @@
-#coding=utf-8
+# coding=utf-8
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
-from ..compatible import role
+
 
 class LineTV(SubtitleExtractor):
 	info = {
-		'name': 'LINE TV',
-		'url': 'https://www.linetv.tw/',
-		'status': SupportStatus.supported,
+		"name": "LINE TV",
+		"url": "https://www.linetv.tw/",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = '.+LINE TV-'
+	windowTitle = ".+LINE TV-"
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		videoPlayer = find(obj, 'parent', 'id', 'player')
+		videoPlayer = find(obj, "parent", "id", "player")
 		return videoPlayer
-	
+
 	def getSubtitleContainer(self):
 		videoPlayer = self.main.videoPlayer
 		subtitleContainer = videoPlayer.firstChild.next
 		return subtitleContainer
-	
+
 	def getSubtitle(self):
 		return super(LineTV, self).getSubtitle()
-	

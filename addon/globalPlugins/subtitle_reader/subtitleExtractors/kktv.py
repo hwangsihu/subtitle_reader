@@ -1,46 +1,47 @@
-#coding=utf-8
+# coding=utf-8
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
 from ..compatible import role
 
+
 class Kktv(SubtitleExtractor):
 	info = {
-		'name': 'KKTV',
-		'url': 'https://www.kktv.me/',
-		'status': SupportStatus.supported,
+		"name": "KKTV",
+		"url": "https://www.kktv.me/",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = r'.+ \| KKTV'
+	windowTitle = r".+ \| KKTV"
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		videoPlayer = find(obj, 'parent', 'role', role('document'))
+		videoPlayer = find(obj, "parent", "role", role("document"))
 		return videoPlayer
-	
+
 	def getSubtitleContainer(self):
 		return True
-	
+
 		videoPlayer = self.main.videoPlayer
 		appName = videoPlayer.appModule.appName
-		return getattr(self, appName + 'GetSubtitleContainer')()
-	
+		return getattr(self, appName + "GetSubtitleContainer")()
+
 	def getSubtitle(self):
 		videoPlayer = self.main.videoPlayer
 		appName = videoPlayer.appModule.appName
-		return getattr(self, appName + 'GetSubtitle')()
-	
+		return getattr(self, appName + "GetSubtitle")()
+
 	def chromeGetSubtitle(self):
 		obj = self.main.videoPlayer
-		obj = find(obj, 'firstChild', 'class', 'kktv-player__wrapper')
+		obj = find(obj, "firstChild", "class", "kktv-player__wrapper")
 		if not obj:
 			return
 		obj = obj.next.next
 		return super(Kktv, self).getSubtitle(obj)
-	
+
 	def firefoxGetSubtitle(self):
 		obj = self.main.videoPlayer
 		obj = obj.firstChild.firstChild.firstChild.next.next
-		if 'subtitle' not in obj.IA2Attributes.get('class'):
-			return ''
-		
+		if "subtitle" not in obj.IA2Attributes.get("class"):
+			return ""
+
 		return super(Kktv, self).getSubtitle(obj)
-	
