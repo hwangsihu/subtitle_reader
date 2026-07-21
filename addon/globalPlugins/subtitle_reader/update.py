@@ -66,7 +66,7 @@ class Update:
 	def toggleCheckAutomatic(self, event):
 		menu = event.GetEventObject()
 		# Translators: This is Menu item that can toggle automatic check for update on Subtitle Reader is start
-		id = menu.FindItem(_(u'自動檢查更新(&A)'))
+		id = menu.FindItem(_('Check for updates automatically (&A)'))
 		item = menu.FindItemById(id)
 		status = conf['checkUpdateAutomatic'] = not conf['checkUpdateAutomatic']
 		item.Check(status)
@@ -123,12 +123,12 @@ class Update:
 	def isLatestVersion(self):
 		play(soundPath + r'\isLatestVersion.ogg')
 		# Translators: This is a prompt to confirm that the reader is the latest version
-		wx.MessageBox(_(u'您已升級到最新版本，祝您觀影愉快！'), _(u'恭喜'), style=wx.ICON_EXCLAMATION)
+		wx.MessageBox(_('You have updated to the latest version, enjoy using it！'), _('congratulations'), style=wx.ICON_EXCLAMATION)
 	
 	def checkError(self, error):
 		play(soundPath + r'\downloadError.ogg')
 		# Translators: This is the prompt when checking for updates fails
-		wx.MessageBox(_(u'檢查更新失敗') + u': ' + str(error), _(u'錯誤'), style=wx.ICON_ERROR)
+		wx.MessageBox(_('Unable to check for updates') + u': ' + str(error), _('Error'), style=wx.ICON_ERROR)
 	
 	def showDialog(self):
 		dlg = self.dialog = UpdateDialog(self.new['version'])
@@ -204,7 +204,7 @@ class Update:
 	def downloadError(self, error):
 		play(soundPath + r'\downloadError.ogg')
 		# Translators: This is the prompt when downloading updates fails
-		wx.MessageBox(_(u'下載更新失敗') + u': ' + str(error), _(u'錯誤'), style=wx.ICON_ERROR, parent=self.dialog)
+		wx.MessageBox(_('The update download has failed') + u': ' + str(error), _('Error'), style=wx.ICON_ERROR, parent=self.dialog)
 	
 	def skipVersion(self, event):
 		play(soundPath + r'\skipVersion.ogg')

@@ -36,7 +36,7 @@ conf.load(appArgs.configPath + r'\subtitle_reader.json')
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Subtitle Reader
-	scriptCategory = _(u'字幕閱讀器')
+	scriptCategory = _('Subtitle reader')
 	def __new__(cls):
 		# 在安全桌面不執行字幕閱讀器
 		if cls.isRunningOnSecureDesktop():
@@ -131,16 +131,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if switch:
 			self.executeSubtitleExtractor()
 			# Translators: This will be displayed when the reader switch is turned on
-			ui.message(_(u'開始閱讀字幕'))
+			ui.message(_('Subtitle reader on'))
 		else:
 			self.stopReadSubtitle()
 			# Translators: This will be displayed when the reader switch is turned off
-			ui.message(_(u'停止閱讀字幕'))
+			ui.message(_('Subtitle reader off'))
 		
 		self.menu.switch.Check(switch)
 	
 	# Translators: Reader's toggle switch
-	script_toggleSwitch.__doc__ = _(u'閱讀器開關')
+	script_toggleSwitch.__doc__ = _('Enable or disable subtitle reader')
 	
 	def script_manualReadSubtitle(self, gesture):
 		def getSubtitle(self):
@@ -454,19 +454,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def onCrunchyrollHelp(self, evt):
 		ui.browseableMessage(
-			_(u'Crunchyroll 字幕支援安裝說明\n\n'
-			u'步驟一：安裝 Tampermonkey\n'
-			u'在選單中選擇您的瀏覽器（Chrome、Firefox 或 Edge），\n'
-			u'從開啟的頁面安裝 Tampermonkey 擴充功能。\n\n'
-			u'步驟二：安裝腳本\n'
-			u'點選「安裝腳本」，瀏覽器會開啟安裝頁面，\n'
-			u'Tampermonkey 會自動提示安裝。\n'
-			u'點選「安裝」，完成後關閉該分頁。\n\n'
-			u'步驟三：使用\n'
-			u'開啟 Crunchyroll 影片並啟用字幕，\n'
-			u'按 NVDA+Y 開始閱讀字幕。\n\n'
-			u'注意：支援 Chrome、Firefox 和 Edge。'),
-			_(u'Crunchyroll 使用說明')
+			_('Crunchyroll Subtitle Support Setup\n\nStep 1: Install Tampermonkey\nIn the menu, click the button for your browser\n(Chrome, Firefox or Edge).\nInstall the Tampermonkey extension from the page that opens.\n\nStep 2: Install the script\nClick "Install script". A page opens in your browser and\nTampermonkey will automatically prompt you to install.\nClick "Install", then close the tab.\n\nStep 3: Use\nOpen a video on Crunchyroll with subtitles enabled.\nPress NVDA+Y to start reading subtitles.\n\nNote: The script works with Chrome, Firefox and Edge.'),
+			_('Crunchyroll - Help')
 		)
 
 	__gestures = {

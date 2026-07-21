@@ -1,22 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the subtitle_reader package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: subtitle_reader 2.54\n"
-"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"Project-Id-Version: subtitle_reader 3.80\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2025-04-12 14:46+0800\n"
-"PO-Revision-Date: 2025-07-22 08:30+0200\n"
-"Last-Translator: \n"
-"Language-Team: French\n"
-"Language: fr\n"
+"PO-Revision-Date: 2026-07-21 18:49+0800\n"
+"Last-Translator: 福恩 <maxe@mail.batol.net>\n"
+"Language-Team: Traditional Chinese\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.6\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: Script category for Subtitle Reader
 #. Add-on summary, usually the user visible name of the addon.
@@ -25,93 +20,83 @@ msgstr ""
 #. Manager.
 #: addon\globalPlugins\subtitle_reader\__init__.py:47 buildVars.py:23
 msgid "Subtitle reader"
-msgstr "Lecteur de sous-titres"
+msgstr "字幕閱讀器"
 
 #. Translators: This will be displayed when the reader switch is turned on
 #: addon\globalPlugins\subtitle_reader\__init__.py:151
 msgid "Subtitle reader on"
-msgstr "Démarrer la lecture des sous-titres"
+msgstr "開始閱讀字幕"
 
 #. Translators: This will be displayed when the reader switch is turned off
 #: addon\globalPlugins\subtitle_reader\__init__.py:155
 msgid "Subtitle reader off"
-msgstr "Arrêter la lecture des sous-titres"
+msgstr "停止閱讀字幕"
 
 #. Translators: Reader's toggle switch
 #: addon\globalPlugins\subtitle_reader\__init__.py:160
 msgid "Enable or disable subtitle reader"
-msgstr "Activer/Désactiver le lecteur"
+msgstr "閱讀器開關"
 
 #. Translators: Subtitle Reader menu on the NVDA tools menu
 #: addon\globalPlugins\subtitle_reader\gui.py:20
 msgid "Subtitle reader (&R)"
-msgstr "Lecteur de sous-titres (&R)"
+msgstr "字幕閱讀器 (&R)"
 
 #. Translators: Reader toggle switch on the Subtitle Reader menu
 #: addon\globalPlugins\subtitle_reader\gui.py:22
 msgid "Enable or disable subtitle reader (&S)"
-msgstr "Activer/Désactiver le lecteur (&S)"
+msgstr "閱讀器開關 (&S)"
 
 #. Translators: toggle reading when video window not in foreground on the
 #. Subtitle Reader menu
 #: addon\globalPlugins\subtitle_reader\gui.py:26
 msgid "Reading in the background (&B)"
-msgstr "Lire en arrière-plan (&B)"
+msgstr "背景閱讀 (&B)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:30
 msgid "Opciones for Youtube"
-msgstr "Paramètres Youtube"
+msgstr "Youtube 相關設定"
 
 #. Translators: toggle Youtube menu item whether to read the chat message when
 #. the new chat message already appeared
 #: addon\globalPlugins\subtitle_reader\gui.py:33
 msgid "Read chat (&R)"
-msgstr "Lire le chat (&R)"
+msgstr "閱讀聊天室(&R)"
 
 #. Translators: toggle Youtube menu item whether to read the chat message
 #. sender.
 #: addon\globalPlugins\subtitle_reader\gui.py:37
 msgid "Read the sender's name (&A)"
-msgstr "Lire l'expéditeur du chat (&A)"
+msgstr "閱讀聊天室訊息發送者(&A)"
 
 #. Translators: toggle Youtube menu item whether to read the manager's chat
 #. message only.
 #: addon\globalPlugins\subtitle_reader\gui.py:41
 msgid "Read only messages from the moderator (&M)"
-msgstr "Lire uniquement les messages des modérateurs (&M)"
+msgstr "僅閱讀管理員訊息(&M)"
 
 #. Translators: toggle Youtube menu item whether to read the chat gift sponser
 #. message.
 #: addon\globalPlugins\subtitle_reader\gui.py:45
 msgid "Read gift sent (&G)"
-msgstr "Lire les dons d'abonnements (&G)"
+msgstr "閱讀會籍贈送(&G)"
 
 #. Translators: toggle Youtube menu item whether to omit graphic when reading
 #. the chats
 #: addon\globalPlugins\subtitle_reader\gui.py:49
 msgid "Skip the picture name when reading the chat (&G)"
-msgstr "Ignorer le nom des images lors de la lecture du chat (&G)"
+msgstr "閱讀聊天室時掠過圖片名稱(&G)"
 
 #. Translators: toggle menu item whether to prompt wher Youtube info card is
 #. already appear
 #: addon\globalPlugins\subtitle_reader\gui.py:53
 msgid "Information cards (&I)"
-msgstr "Annoncer les fiches d'information (&I)"
+msgstr "資訊卡提示(&I)"
 
 #. Translators: This menu item performs a check for updates to the reader
 #: addon\globalPlugins\subtitle_reader\gui.py:57
 msgid "Check for updates (&C)"
-msgstr "Vérifier les mises à jour (&C)"
-
-#. Translators: This is menu item that opens the current version's changelog
-#: addon\globalPlugins\subtitle_reader\gui.py:59
-msgid "Open current version change log (&O)"
-msgstr "Ouvrir le journal de la version actuelle (&O)"
-
-#. Translators: This is menu item that opens the latest version's changelog
-#: addon\globalPlugins\subtitle_reader\gui.py:61
-msgid "Open latest version change log (&L)"
-msgstr "Ouvrir le journal de la dernière version (&L)"
+msgstr "立即檢查更新(&C)"
 
 #. Translators: This menu item that can toggle automatic check for update when
 #. Subtitle Reader is start
@@ -120,15 +105,15 @@ msgstr "Ouvrir le journal de la dernière version (&L)"
 #: addon\globalPlugins\subtitle_reader\gui.py:61
 #: addon\globalPlugins\subtitle_reader\update.py:63
 msgid "Check for updates automatically (&A)"
-msgstr "Vérifier automatiquement les mises à jour (&A)"
+msgstr "自動檢查更新(&A)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:65
 msgid "contact the developer (&C)"
-msgstr "Contacter le développeur (&C)"
+msgstr "聯絡開發者 (&C)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:68
 msgid "Facebook profile"
-msgstr "Profil Facebook"
+msgstr "Facebook 個人檔案"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:69
 msgid "QQ, id:2231691423"
@@ -137,7 +122,7 @@ msgstr "QQ, id:2231691423"
 #: addon\globalPlugins\subtitle_reader\gui.py:70
 #: addon\globalPlugins\subtitle_reader\gui.py:71
 msgid "Click to copy"
-msgstr "Cliquer pour copier dans le presse-papiers"
+msgstr "點此複製到剪貼簿"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:72
 msgid "X, ID:Maxe0310"
@@ -145,82 +130,82 @@ msgstr "X, ID:Maxe0310"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:75
 msgid "Supported video platforms (&P)"
-msgstr "Plateformes vidéo prises en charge (&P)"
+msgstr "支援影音平台 (&P)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:77
 msgid " State："
-msgstr " Statut :"
+msgstr " 狀態："
 
 #: addon\globalPlugins\subtitle_reader\gui.py:83
 msgid "Subtitle reader V"
-msgstr "Lecteur de sous-titres V"
+msgstr "字幕閱讀器 V"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:83
 msgid " Version information"
-msgstr " Informations sur la version"
+msgstr " 新版資訊"
 
 #. Translators: This label means the edit box content is changelog
 #: addon\globalPlugins\subtitle_reader\gui.py:86
 msgid "Change log"
-msgstr "Journal des modifications"
+msgstr "更新日誌"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:91
 msgid "Subtitle"
-msgstr "Sous-titre"
+msgstr "字幕"
 
 #. Translators: This button means now run the update process
 #: addon\globalPlugins\subtitle_reader\gui.py:99
 msgid "Update now (&U)"
-msgstr "Mettre à jour maintenant (&U)"
+msgstr "現在更新(&U)"
 
 #. Translators: This button means that the automatic check for updates will
 #. skip this version
 #: addon\globalPlugins\subtitle_reader\gui.py:103
 msgid "Skip this version (&S)"
-msgstr "Ignorer cette version (&S)"
+msgstr "跳過此版本(&S)"
 
 #. Translators: This button means close window until next automatic or manual
 #. check for update
 #: addon\globalPlugins\subtitle_reader\gui.py:107
 msgid "Later (&L)"
-msgstr "Plus tard (&L)"
+msgstr "晚點再說(&L)"
 
 #: addon\globalPlugins\subtitle_reader\subtitle_alg.py:76
 msgid "Failure"
-msgstr "invalide"
+msgstr "失效"
 
 #: addon\globalPlugins\subtitle_reader\subtitle_alg.py:77
 msgid "Success"
-msgstr "pris en charge"
+msgstr "正常"
 
 #. Translators: This is a prompt to confirm that the reader is the latest
 #. version
 #: addon\globalPlugins\subtitle_reader\update.py:130
 msgid "You have updated to the latest version, enjoy using it！"
-msgstr "Vous disposez de la dernière version. Profitez bien de la vidéo !"
+msgstr "您已升級到最新版本，祝您觀影愉快！"
 
 #: addon\globalPlugins\subtitle_reader\update.py:130
 msgid "congratulations"
-msgstr "Félicitations"
+msgstr "恭喜"
 
 #. Translators: This is the prompt when checking for updates fails
 #: addon\globalPlugins\subtitle_reader\update.py:135
 msgid "Unable to check for updates"
-msgstr "Échec de la vérification des mises à jour"
+msgstr "檢查更新失敗"
 
 #: addon\globalPlugins\subtitle_reader\update.py:135
 #: addon\globalPlugins\subtitle_reader\update.py:179
 msgid "Error"
-msgstr "Erreur"
+msgstr "錯誤"
 
 #. Translators: This is the prompt when downloading updates fails
 #: addon\globalPlugins\subtitle_reader\update.py:179
 msgid "The update download has failed"
-msgstr "Échec du téléchargement de la mise à jour"
+msgstr "下載更新失敗"
 
 #: addon\globalPlugins\subtitle_reader\youtube.py:321
 msgid "Survey："
-msgstr "Sondage :"
+msgstr "意見調查："
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on
@@ -229,29 +214,27 @@ msgstr "Sondage :"
 msgid ""
 "This add-on let NVDA read out the subtitles when the focus is on the movie "
 "player on the Web page。"
-msgstr ""
-"Permet à NVDA de lire les sous-titres lorsque le focus est sur le lecteur "
-"vidéo d'une page web."
+msgstr "當焦點位於網頁上的影片播放器時，讓 NVDA 讀出字幕。"
 
 #. Translators: Crunchyroll setup submenu
 msgid "Crunchyroll - Setup (&K)"
-msgstr "Crunchyroll - Installation (&K)"
+msgstr "Crunchyroll 安裝設定 (&K)"
 
 #. Translators: Install Tampermonkey submenu
 msgid "Install Tampermonkey (&T)"
-msgstr "Installer Tampermonkey (&T)"
+msgstr "安裝 Tampermonkey (&T)"
 
 #. Translators: Install userscript menu item
 msgid "Install script (&I)"
-msgstr "Installer le script (&I)"
+msgstr "安裝腳本 (&I)"
 
 #. Translators: Help menu item for Crunchyroll
 msgid "Help (&H)"
-msgstr "Aide (&H)"
+msgstr "使用說明 (&H)"
 
 #. Translators: Crunchyroll help dialog title
 msgid "Crunchyroll - Help"
-msgstr "Aide - Crunchyroll"
+msgstr "Crunchyroll 使用說明"
 
 #. Translators: Crunchyroll help dialog content
 msgid ""
@@ -273,20 +256,29 @@ msgid ""
 "\n"
 "Note: The script works with Chrome, Firefox and Edge."
 msgstr ""
-"Installation du support Crunchyroll\n"
+"Crunchyroll 字幕支援安裝說明\n"
 "\n"
-"Étape 1 : Installez Tampermonkey\n"
-"Dans le menu, cliquez sur le bouton correspondant à votre navigateur\n"
-"(Chrome, Firefox ou Edge).\n"
-"Installez l'extension Tampermonkey depuis la page qui s'ouvre.\n"
+"步驟一：安裝 Tampermonkey\n"
+"在選單中選擇您的瀏覽器（Chrome、Firefox 或 Edge），\n"
+"從開啟的頁面安裝 Tampermonkey 擴充功能。\n"
 "\n"
-"Étape 2 : Installez le script\n"
-"Cliquez sur « Installer le script ». Une page s'ouvre dans votre\n"
-"navigateur et Tampermonkey propose automatiquement l'installation.\n"
-"Cliquez sur « Installer », puis fermez l'onglet.\n"
+"步驟二：安裝腳本\n"
+"點選「安裝腳本」，瀏覽器會開啟安裝頁面，\n"
+"Tampermonkey 會自動提示安裝。\n"
+"點選「安裝」，完成後關閉該分頁。\n"
 "\n"
-"Étape 3 : Utilisez\n"
-"Ouvrez une vidéo sur Crunchyroll avec des sous-titres activés.\n"
-"Appuyez sur NVDA+Y pour démarrer la lecture des sous-titres.\n"
+"步驟三：使用\n"
+"開啟 Crunchyroll 影片並啟用字幕，\n"
+"按 NVDA+Y 開始閱讀字幕。\n"
 "\n"
-"Note : Le script fonctionne avec Chrome, Firefox et Edge."
+"注意：支援 Chrome、Firefox 和 Edge。"
+
+#. Translators: This is menu item that open the current version's changelog
+#: addon/globalPlugins/subtitle_reader/gui.py:77
+msgid "Open current version change log (&O)"
+msgstr "開啟當前版本更新日誌(&O)"
+
+#. Translators: This is menu item that open the latest version's changelog
+#: addon/globalPlugins/subtitle_reader/gui.py:79
+msgid "Open latest version change log (&L)"
+msgstr "開啟最新版本更新日誌(&L)"
