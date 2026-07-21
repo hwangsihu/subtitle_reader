@@ -1,9 +1,7 @@
-# -*- coding: UTF-8 -*-
-
 # Build customizations
 # Change this file instead of sconstruct or manifest files, whenever possible.
 
-from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, SymbolDictionaries
+from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, SymbolDictionaries, SpeechDictionaries
 
 # Since some strings in `addon_info` are translatable,
 # we need to include them in the .po files.
@@ -11,7 +9,6 @@ from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, Sym
 # To avoid initializing translations in this module we simply import a "fake" `_` function
 # which returns whatever is given to it as an argument.
 from site_scons.site_tools.NVDATool.utils import _
-
 
 # Add-on information variables
 addon_info = AddonInfo(
@@ -27,7 +24,7 @@ addon_info = AddonInfo(
 	# version
 	# 1. 功能調整或錯誤修復為小數點後兩位。
 	# 2. 新的影音平台支援為小數點後一位，並且將小數點第二位歸零。
-	# 3. 版本號會自然進位，故支援 10 個影音平台主版本號 +1. 
+	# 3. 版本號會自然進位，故支援 10 個影音平台主版本號 +1.
 	# 4. 附加元件商店的版本號，小數點後仍是整數比較，故小數點後為 0 也不可省略。
 	addon_version="3.80",
 	# Brief changelog for this version
@@ -105,5 +102,14 @@ brailleTables: BrailleTables = {}
 # Each key is the name of the dictionary,
 # with keys inside recording the following attributes:
 # displayName (name of the speech dictionary shown to users and translatable),
-# mandatory (True when always enabled, False when not.
+# mandatory (True when always enabled, False when not).
 symbolDictionaries: SymbolDictionaries = {}
+
+# Custom speech dictionaries (distinct from symbol dictionaries above)
+# Speech dictionary files reside in the speechDicts folder and are named `name.dic`.
+# If your add-on includes custom speech (pronunciation) dictionaries (most will not), fill out this dictionary.
+# Each key is the name of the dictionary,
+# with keys inside recording the following attributes:
+# displayName (name of the speech dictionary shown to users and translatable),
+# mandatory (True when always enabled, False when not).
+speechDictionaries: SpeechDictionaries = {}
