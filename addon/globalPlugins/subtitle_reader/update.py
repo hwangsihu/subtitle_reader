@@ -16,13 +16,12 @@ else:
 import ssl
 from threading import Thread
 
-from .sound import play, music, setVolume, getPos
+from .sound import play
 
 from .version import version
 from .config import conf
 from .gui import UpdateDialog, wx, gui as nvdaGui
 from globalVars import appArgs
-import ui
 
 soundPath = os.path.dirname(__file__) + r'\assets\sounds'
 projectUrl = 'https://raw.githubusercontent.com/hwangsihu/subtitle_reader/main'
@@ -36,10 +35,6 @@ class Update:
 		self.checkThreadObj = None
 		self.dialog = None
 		self.downloadThreadObj = None
-		self.bgmThread = None
-		self.bgm = None
-		self.lastPos = 0
-		self.readLyricsTimer = None
 		self.checkAutomatic()
 	
 	def checkAutomatic(self):
@@ -134,23 +129,12 @@ class Update:
 		dlg = self.dialog = UpdateDialog(self.new['version'])
 		dlg.isVisited = False
 		dlg.changelogText.SetValue(self.new['changelog'])
-		dlg.volumeSlider.Bind(wx.EVT_SCROLL, self.onVolumeChange)
 		dlg.updateNow.Bind(wx.EVT_BUTTON, self.updateNow)
 		dlg.skipVersion.Bind(wx.EVT_BUTTON, self.skipVersion)
 		dlg.later.Bind(wx.EVT_BUTTON, self.later)
-		dlg.Bind(wx.EVT_CHAR_HOOK, self.onKeyDown)
 		dlg.Bind(wx.EVT_CLOSE, self.onClose)
 		#nvdaGui.runScriptModalDialog(dlg)
 		dlg.ShowWithoutActivating()
-	
-	def onVolumeChange(self, evt):
-		volume = max(evt.Position, 10)
-		evt.EventObject.SetValue(volume)
-		evt.Skip()
-		if not self.bgm:
-			return
-		
-		setVolume(self.bgm, volume)
 	
 	def updateNow(self, event):
 		if self.downloadThreadObj and self.downloadThreadObj.is_alive():
@@ -215,82 +199,7 @@ class Update:
 		play(soundPath + r'\closeDialog.ogg')
 		self.dialog.Close()
 	
-	def onKeyDown(self, event):
-		event.Skip()
-		if self.dialog.isVisited:
-			return
-		
-		self.dialog.isVisited = True
-		self.bgmThread = Thread(target=self.startBGM)
-		self.bgmThread.start()
-	
-	def startBGM(self):
-		self.bgm = music('https://raw.githubusercontent.com/maxe-hsieh/bgm/main/subtitle_reader/updating.mp3')
-		
-		# 有可能在音樂播放之前視窗已經關閉
-		if not self.dialog:
-			music()
-			self.bgm = None
-			return
-		
-		try:
-			setVolume(self.bgm, self.dialog.volumeSlider.Value)
-			res = urlopen('https://raw.githubusercontent.com/maxe-hsieh/bgm/main/subtitle_reader/updating.ly')
-			if res.code != 200:
-				return
-			
-			lyrics = res.read().decode('utf-8')
-			res.close()
-		
-		except:
-			return
-		
-		lyricsObj = []
-		for line in lyrics.split('\n'):
-			obj = {}
-			match = re.match(r'^\[(\d{1,2}):(\d{1,2}(?:\.\d+)?)\](.+)$', line)
-			if not match:
-				continue
-			
-			obj['time'] = int(match.group(1)) * 60 + float(match.group(2))
-			obj['text'] = match.group(3)
-			lyricsObj.append(obj)
-		
-		self.lyrics = lyricsObj
-		self.readLyricsTimer = nvdaGui.NonReEntrantTimer(self.readLyrics)
-		wx.CallAfter(self.readLyricsTimer.Start, 5, wx.TIMER_CONTINUOUS)
-	
-	def readLyrics(self):
-		second = round(getPos(self.bgm), 3)
-		lyrics = ''
-		if self.lastPos < second:
-			for obj in self.lyrics:
-				if self.lastPos <= obj['time'] < second:
-					lyrics += obj['text'] + '\r\n'
-				
-			
-		
-		self.lastPos = second
-		if not lyrics:
-			return
-		
-		self.dialog.subtitleLabel.SetLabel(lyrics)
-		if conf['switch'] is False:
-			return
-		
-		if not self.dialog.IsActive():
-			return
-		
-		ui.message(lyrics)
-		
-	
 	def onClose(self, event):
-		if self.readLyricsTimer is not None:
-			self.readLyricsTimer.Stop()
-			self.readLyricsTimer = None
-		
 		self.dialog.Destroy()
 		self.dialog = None
-		music()
-		self.bgm = None
 	

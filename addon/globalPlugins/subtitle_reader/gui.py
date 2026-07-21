@@ -8,7 +8,6 @@ addonHandler.initTranslation()
 
 import wx
 import gui
-from gui.nvdaControls import EnhancedInputSlider
 
 from .subtitleExtractors import SubtitleExtractor
 
@@ -110,14 +109,6 @@ class UpdateDialog(wx.Dialog):
 		self.changelogText = wx.TextCtrl(self, style=wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_RICH2 | wx.HSCROLL, size=(1024, 768))
 		self.sizer.Add(self.changelogText, wx.SizerFlags(1).Expand())
 		
-		self.subtitleLabel = Label(self, label=_('Subtitle'))
-		self.sizer.Add(self.subtitleLabel, wx.SizerFlags(0).Center())
-		
-		self.volumeLabel = wx.StaticText(self, label='音樂音量')
-		self.volumeSlider = EnhancedInputSlider(self, value=70)
-		self.sizer.Add(self.volumeLabel)
-		self.sizer.Add(self.volumeSlider)
-		
 		self.progress = wx.Gauge(self, style=wx.GA_VERTICAL + wx.ST_NO_AUTORESIZE)
 		self.sizer.Add(self.progress)
 		self.buttonSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -136,12 +127,3 @@ class UpdateDialog(wx.Dialog):
 		
 		self.SetSizerAndFit(self.sizer)
 		self.CenterOnScreen()
-	
-
-class Label(wx.StaticText):
-	def AcceptsFocus(self):
-		return True
-	
-	def AcceptsFocusFromKeyboard(self):
-		return True
-	
