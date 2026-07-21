@@ -1,42 +1,43 @@
-#coding=utf-8
+# coding=utf-8
 
 from __future__ import unicode_literals
+import addonHandler
+
+addonHandler.initTranslation()
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find
-from ..compatible import role
 
-from logHandler import log
 
 class MarumaruX(SubtitleExtractor):
 	info = {
-		'name': '唱歌學日語',
-		'url': 'https://www.marumaru-x.com/japanese-song',
-		'status': SupportStatus.supported,
+		"name": _("marumaru"),
+		"url": "https://www.marumaru-x.com/japanese-song",
+		"status": SupportStatus.supported,
 	}
-	windowTitle = r'.+ \| 唱歌學.+ \| marumaru'
+	windowTitle = r".+ \| 唱歌學.+ \| marumaru"
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		videoPlayer = find(obj, 'parent', 'id', 'player')
+		videoPlayer = find(obj, "parent", "id", "player")
 		# 有可能找到 YT 的，跳過它。
 		if videoPlayer and not videoPlayer.next:
-			videoPlayer = find(videoPlayer.parent, 'parent', 'id', 'player')
-		
+			videoPlayer = find(videoPlayer.parent, "parent", "id", "player")
+
 		return videoPlayer
-	
+
 	def getSubtitleContainer(self):
 		videoPlayer = self.main.videoPlayer
 		appName = videoPlayer.appModule.appName
-		return getattr(self, appName + 'GetSubtitleContainer')()
-	
+		return getattr(self, appName + "GetSubtitleContainer")()
+
 	def chromeGetSubtitleContainer(self):
 		player = self.main.videoPlayer
 		container = player.next.firstChild.next
 		return container
-	
+
 	def firefoxGetSubtitleContainer(self):
 		pass
-	
+
 	def getSubtitle(self):
 		return super(MarumaruX, self).getSubtitle()
-	

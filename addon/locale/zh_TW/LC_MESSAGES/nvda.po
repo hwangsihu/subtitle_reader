@@ -282,3 +282,31 @@ msgstr "開啟當前版本更新日誌(&O)"
 #: addon/globalPlugins/subtitle_reader/gui.py:79
 msgid "Open latest version change log (&L)"
 msgstr "開啟最新版本更新日誌(&L)"
+
+#. Reported when no subtitle is found
+msgid "No subtitles"
+msgstr "沒有字幕"
+
+#. Input help for the manual read gesture
+msgid "Manually read subtitles"
+msgstr "手動閱讀字幕"
+
+#. Supported platform name
+msgid "bilibili"
+msgstr "哔哩哔哩"
+
+#. Supported platform name
+msgid "iQIYI"
+msgstr "爱奇艺"
+
+#. Supported platform name
+msgid "marumaru"
+msgstr "唱歌學日語"
+
+#. Supported platform name
+msgid "MissEvan"
+msgstr "猫耳FM"
+
+#. Announced for a chat banner
+msgid "Chat banner"
+msgstr "聊天室橫幅"

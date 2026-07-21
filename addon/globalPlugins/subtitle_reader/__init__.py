@@ -1,4 +1,4 @@
-#coding=utf-8
+# coding=utf-8
 
 # 字幕閱讀器
 # 作者：福恩 <maxe@mail.batol.net>
@@ -10,6 +10,7 @@ import ui
 import time
 
 import addonHandler
+
 addonHandler.initTranslation()
 
 import globalPluginHandler
@@ -17,11 +18,11 @@ import api
 from globalVars import appArgs
 from logHandler import log
 from comtypes import COMError
-from . import sound
 from . import gui
 from .config import conf
 
 from .subtitleExtractors import SubtitleExtractor
+
 SubtitleExtractor.initialize()
 
 from .potPlayer import PotPlayer
@@ -32,24 +33,34 @@ nvdaGui = gui.gui
 
 wx = gui.wx
 
-conf.load(appArgs.configPath + r'\subtitle_reader.json')
+conf.load(appArgs.configPath + r"\subtitle_reader.json")
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Subtitle Reader
-	scriptCategory = _('Subtitle reader')
+	scriptCategory = _("Subtitle reader")
+
 	def __new__(cls):
 		# 在安全桌面不執行字幕閱讀器
 		if cls.isRunningOnSecureDesktop():
 			# 傳回附加元件的基礎類別實體，表示沒有任何功能的附加元件。
 			return globalPluginHandler.GlobalPlugin()
-		
+
 		return super(cls, cls).__new__(cls)
-	
+
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		
+
 		self.subtitleExtractor = None
-		self.supportedBrowserAppNames = ('chrome', 'brave', 'firefox', 'msedge', 'microsoftedge', 'edge', 'browser') # browser = Yandex
+		self.supportedBrowserAppNames = (
+			"chrome",
+			"brave",
+			"firefox",
+			"msedge",
+			"microsoftedge",
+			"edge",
+			"browser",
+		)  # browser = Yandex
 		self.focusObject = None
 		self.urlObjects = {}
 		self.videoPlayer = None
@@ -59,14 +70,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# 使用 wx.PyTimer 不斷執行函數
 		self.readSubtitleTimer = nvdaGui.NonReEntrantTimer(self.readSubtitle)
 		self.startReadSubtitleTime = 0
-		
-		sound.init()
-		
+
 		self.update = Update()
 		# 初始化選單
 		self.initMenu()
 		self.potPlayer = PotPlayer()
-	
+
 	def initMenu(self):
 		menu = self.menu = gui.Menu(self)
 		gui.tray.Bind(gui.wx.EVT_MENU, self.script_toggleSwitch, menu.switch)
@@ -84,7 +93,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		menu.crunchyrollTM.Bind(gui.wx.EVT_MENU, self.onCrunchyrollTMChrome, menu.crunchyrollTMChrome)
 		menu.crunchyrollTM.Bind(gui.wx.EVT_MENU, self.onCrunchyrollTMFirefox, menu.crunchyrollTMFirefox)
 		menu.crunchyrollTM.Bind(gui.wx.EVT_MENU, self.onCrunchyrollTMEdge, menu.crunchyrollTMEdge)
-		menu.crunchyrollSetup.Bind(gui.wx.EVT_MENU, self.onCrunchyrollInstallScript, menu.crunchyrollInstallScript)
+		menu.crunchyrollSetup.Bind(
+			gui.wx.EVT_MENU,
+			self.onCrunchyrollInstallScript,
+			menu.crunchyrollInstallScript,
+		)
 		menu.crunchyrollSetup.Bind(gui.wx.EVT_MENU, self.onCrunchyrollHelp, menu.crunchyrollHelp)
 		# 聯絡開發者
 		menu.contactDeveloper.Bind(gui.wx.EVT_MENU, self.contactUseWhatsApp, menu.contactUseWhatsApp)
@@ -93,87 +106,86 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		menu.contactDeveloper.Bind(gui.wx.EVT_MENU, self.contactUseLine, menu.contactUseLine)
 		menu.contactDeveloper.Bind(gui.wx.EVT_MENU, self.contactUseDiscord, menu.contactUseDiscord)
 		menu.contactDeveloper.Bind(gui.wx.EVT_MENU, self.contactUseX, menu.contactUseX)
-		
+
 		# 支援的影音平台
 		for item in menu.platforms.GetMenuItems():
 			menu.platforms.Bind(gui.wx.EVT_MENU, self.openPlatformPage, item)
-		
-		menu.switch.Check(conf['switch'])
-		menu.backgroundReading.Check(conf['backgroundReading'])
-		menu.readChat.Check(conf['readChat'])
-		menu.readChatSender.Check(conf['readChatSender'])
-		menu.onlyReadManagersChat.Check(conf['onlyReadManagersChat'])
-		menu.readChatGiftSponser.Check(conf['readChatGiftSponser'])
-		menu.omitChatGraphic.Check(conf['omitChatGraphic'])
-		menu.infoCardPrompt.Check(conf['infoCardPrompt'])
-		menu.checkUpdateAutomatic.Check(conf['checkUpdateAutomatic'])
-	
+
+		menu.switch.Check(conf["switch"])
+		menu.backgroundReading.Check(conf["backgroundReading"])
+		menu.readChat.Check(conf["readChat"])
+		menu.readChatSender.Check(conf["readChatSender"])
+		menu.onlyReadManagersChat.Check(conf["onlyReadManagersChat"])
+		menu.readChatGiftSponser.Check(conf["readChatGiftSponser"])
+		menu.omitChatGraphic.Check(conf["omitChatGraphic"])
+		menu.infoCardPrompt.Check(conf["infoCardPrompt"])
+		menu.checkUpdateAutomatic.Check(conf["checkUpdateAutomatic"])
+
 	def terminate(self):
 		# 關閉 NVDA 時，儲存開關狀態到使用者設定檔。
 		conf.write()
 		self.potPlayer.terminate()
 		gui.toolsMenu.DestroyItem(self.menu.menuItem.Id)
-		
-		sound.free()
-	
+
 	@staticmethod
 	def isRunningOnSecureDesktop():
 		return appArgs.secure
-	
+
 	def startReadSubtitle(self):
 		self.readSubtitleTimer.Start(0, wx.TIMER_CONTINUOUS)
-	
+
 	def stopReadSubtitle(self):
 		self.readSubtitleTimer.Stop()
-	
+
 	def script_toggleSwitch(self, gesture):
-		switch = conf['switch'] = not conf['switch']
+		switch = conf["switch"] = not conf["switch"]
 		if switch:
 			self.executeSubtitleExtractor()
 			# Translators: This will be displayed when the reader switch is turned on
-			ui.message(_('Subtitle reader on'))
+			ui.message(_("Subtitle reader on"))
 		else:
 			self.stopReadSubtitle()
 			# Translators: This will be displayed when the reader switch is turned off
-			ui.message(_('Subtitle reader off'))
-		
+			ui.message(_("Subtitle reader off"))
+
 		self.menu.switch.Check(switch)
-	
+
 	# Translators: Reader's toggle switch
-	script_toggleSwitch.__doc__ = _('Enable or disable subtitle reader')
-	
+	script_toggleSwitch.__doc__ = _("Enable or disable subtitle reader")
+
 	def script_manualReadSubtitle(self, gesture):
 		def getSubtitle(self):
 			obj = self.focusObject
 			if obj.appModule.appName not in self.supportedBrowserAppNames:
 				return
-			
+
 			extractor = self.getSubtitleExtractor()
 			if not extractor:
 				return
-			
+
 			extractor = extractor(self)
 			videoPlayer = self.videoPlayer = extractor.getVideoPlayer()
 			if not videoPlayer:
 				return
-			
+
 			container = self.subtitleContainer = extractor.getSubtitleContainer()
 			if not container:
 				return
-			
+
 			return extractor.getSubtitle()
-		
-		try:	
+
+		try:
 			subtitle = getSubtitle(self)
 		except (COMError, RuntimeError):
 			subtitle = None
-		
+
 		if not subtitle:
-			return ui.message('沒有字幕')
-		
+			return ui.message(_("No subtitles"))
+
 		return ui.message(subtitle)
-	script_manualReadSubtitle.__doc__ = '手動閱讀字幕'
-	
+
+	script_manualReadSubtitle.__doc__ = _("Manually read subtitles")
+
 	def findUrl(self):
 		window = api.getForegroundObject()
 		windowHandle = window.windowHandle
@@ -185,279 +197,273 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except (COMError, RuntimeError):
 				pass
 			del self.urlObjects[windowHandle]
-		
+
 		browser = window.appModule.appName
 		inspectionObjects = [window]
 		timestamp = time.time()
 		timeout = 0.5
-		
+
 		while inspectionObjects:
 			if time.time() - timestamp >= timeout:
 				return
-			
+
 			obj = inspectionObjects.pop(0)
 			found = False
 			try:
-				if browser == 'firefox':
-					found = obj.IA2Attributes.get('id') == 'urlbar-input'
+				if browser == "firefox":
+					found = obj.IA2Attributes.get("id") == "urlbar-input"
 				else:
-					shortcut = (obj.keyboardShortcut or '').replace(' ', '').lower()
-					value = obj.value or ''
-					name = (obj.name or '').lower()
-					hasUrlValue = value.startswith(('http://', 'https://'))
-					found = (
-						'ctrl+l' in shortcut or
-						'alt+d' in shortcut or
-						hasUrlValue 
-					)
-				
+					shortcut = (obj.keyboardShortcut or "").replace(" ", "").lower()
+					value = obj.value or ""
+					hasUrlValue = value.startswith(("http://", "https://"))
+					found = "ctrl+l" in shortcut or "alt+d" in shortcut or hasUrlValue
+
 				if found:
 					self.urlObjects[windowHandle] = obj
 					return obj
-				
+
 				nextObj = obj.next
 				if nextObj:
 					inspectionObjects.insert(0, nextObj)
-				
+
 				nextObj = obj.firstChild
 				if nextObj:
 					inspectionObjects.insert(0, nextObj)
-				
-			
+
 			except COMError:
 				pass
-			
-		
-	
+
 	def event_foreground(self, obj, nextHandler):
 		nextHandler()
-		if not conf['backgroundReading']:
+		if not conf["backgroundReading"]:
 			self.stopReadSubtitle()
 			self.videoPlayer = None
-		
+
 		if obj.appModule.appName not in self.supportedBrowserAppNames:
 			return
-		
+
 		self.urlObject = self.findUrl()
-	
+
 	def event_gainFocus(self, obj, call_to_skip_event):
-		'''
+		"""
 		取得新焦點時，重新取得字幕演算法。
-		'''
+		"""
 		call_to_skip_event()
-		
+
 		self.focusObject = obj
 		try:
 			self.executeSubtitleExtractor()
 		except (COMError, RuntimeError):
 			pass
-		
-	
+
 	def executeSubtitleExtractor(self):
 		obj = self.focusObject
-		
-		if not conf['switch']:
+
+		if not conf["switch"]:
 			return
-		
+
 		if obj.appModule.appName not in self.supportedBrowserAppNames:
 			return
-		
+
 		extractor = self.getSubtitleExtractor()
 		if not extractor:
 			return
-		
+
 		self.subtitleExtractor = extractor = extractor(self)
-		
+
 		videoPlayer = self.videoPlayer = extractor.getVideoPlayer()
 		if not videoPlayer:
 			return
-		
+
 		container = self.subtitleContainer = extractor.getSubtitleContainer()
 		if not container:
 			return
-		
+
 		self.startReadSubtitle()
-	
+
 	def getSubtitleExtractor(self):
 		window = self.focusObject.objectInForeground().name
-		urlObject = getattr(self, 'urlObject', None)
-		url = getattr(urlObject, 'value', '') or ''
-		log.debug('Subtitle extractor lookup: window = {window}, url = {url}'.format(window=window, url=url))
+		urlObject = getattr(self, "urlObject", None)
+		url = getattr(urlObject, "value", "") or ""
+		log.debug("Subtitle extractor lookup: window = {window}, url = {url}".format(window=window, url=url))
 		for extractor in SubtitleExtractor.extractors:
 			if extractor.windowTitle and re.match(extractor.windowTitle, window):
 				return extractor
-			
+
 			if extractor.url and re.match(extractor.url, url):
 				return extractor
-			
-		
-	
+
 	def readSubtitle(self):
-		'''
+		"""
 		尋找並閱讀字幕，必須不斷執行。
-		'''
-		if not conf['switch'] or not self.subtitleContainer:
+		"""
+		if not conf["switch"] or not self.subtitleContainer:
 			return
-		
+
 		if not self.videoPlayer or not self.videoPlayer.role:
 			return
-		
+
 		elapsedTime = time.time() - self.startReadSubtitleTime
 		if elapsedTime < 0.1:
 			return
-		
+
 		self.startReadSubtitleTime = time.time()
 		try:
 			self.subtitleExtractor.onReadingSubtitle()
 			subtitle = self.subtitleExtractor.getSubtitle()
 		except (COMError, RuntimeError):
 			subtitle = None
-		
+
 		if subtitle is None:
 			return
-		
+
 		self.processSubtitle(subtitle)
-	
+
 	def processSubtitle(self, subtitle):
 		# 刪除用於渲染字幕效果的符號
-		subtitle = subtitle.replace(u'​', '').replace(u' ', ' ')
-		log.debug('original subtitle = ' + subtitle)
+		subtitle = subtitle.replace("​", "").replace(" ", " ")
+		log.debug("original subtitle = " + subtitle)
 		subtitle = self.filterSamePart(subtitle)
-		
+
 		if not subtitle:
 			# 沒有字幕超過一秒鐘才清除字幕緩衝區。
 			if not self.emptySubtitleTime:
 				self.emptySubtitleTime = time.time()
 			elif time.time() - self.emptySubtitleTime >= 1:
-				self.subtitle = ''
-			
+				self.subtitle = ""
+
 			return
-		
+
 		self.emptySubtitleTime = 0
-		
+
 		if subtitle == self.subtitle:
 			return
-		
+
 		lastSubtitle = self.subtitle
-		lastSubtitleText = lastSubtitle.replace(' | ', ' ')
-		subtitleText = subtitle.replace(' | ', ' ')
+		lastSubtitleText = lastSubtitle.replace(" | ", " ")
+		subtitleText = subtitle.replace(" | ", " ")
 		self.subtitle = subtitle
-		
+
 		msg = subtitleText
-		
+
 		# 若新的字幕內容是前一字幕的一部分，則不報讀。
 		if subtitleText in lastSubtitleText:
-			msg = ''
-		
+			msg = ""
+
 		# 若新的字幕包含前一字幕的內容，則只報讀填充的部分。
 		if lastSubtitleText and lastSubtitleText in subtitleText:
-			msg = subtitleText.replace(lastSubtitleText, '', 1)
-		
+			msg = subtitleText.replace(lastSubtitleText, "", 1)
+
 		# 使用分隔符號來忽略兩次字幕之間相同的內容
-		split = subtitle.split(' | ')
+		split = subtitle.split(" | ")
 		for part in split:
-			part = part.replace(' | ', ' ')
+			part = part.replace(" | ", " ")
 			if part in lastSubtitleText:
-				msg = msg.replace(part, '')
-			
-		
-		log.debug('subtitle = ' + subtitle)
-		log.debug('last subtitle = ' + lastSubtitle)
-		log.debug('msg = ' + msg)
-		
+				msg = msg.replace(part, "")
+
+		log.debug("subtitle = " + subtitle)
+		log.debug("last subtitle = " + lastSubtitle)
+		log.debug("msg = " + msg)
+
 		if not msg:
 			msg = None
-		
+
 		ui.message(msg)
-	
+
 	def filterSamePart(self, subtitle):
-		parts = subtitle.split(' | ')
+		parts = subtitle.split(" | ")
 		newParts = []
 		for part in parts:
 			if any(s for s in newParts if part.strip() in s.strip() or part.strip() == s.strip()):
 				continue
-			
+
 			matchPart = [s for s in newParts if s.strip() in part.strip()]
 			if matchPart:
 				newParts.remove(matchPart[0])
-			
+
 			newParts.append(part)
-		
-		return ' | '.join(newParts)
-	
+
+		return " | ".join(newParts)
+
 	def toggleBackgroundReading(self, evt):
-		conf['backgroundReading'] = not conf['backgroundReading']
-		self.menu.backgroundReading.Check(conf['backgroundReading'])
-	
+		conf["backgroundReading"] = not conf["backgroundReading"]
+		self.menu.backgroundReading.Check(conf["backgroundReading"])
+
 	def toggleReadChat(self, evt):
-		conf['readChat'] = not conf['readChat']
-		self.menu.readChat.Check(conf['readChat'])
-	
+		conf["readChat"] = not conf["readChat"]
+		self.menu.readChat.Check(conf["readChat"])
+
 	def toggleReadChatSender(self, evt):
-		conf['readChatSender'] = not conf['readChatSender']
-		self.menu.readChatSender.Check(conf['readChatSender'])
-	
+		conf["readChatSender"] = not conf["readChatSender"]
+		self.menu.readChatSender.Check(conf["readChatSender"])
+
 	def toggleOnlyReadManagersChat(self, evt):
-		conf['onlyReadManagersChat'] = not conf['onlyReadManagersChat']
-		self.menu.onlyReadManagersChat.Check(conf['onlyReadManagersChat'])
-	
+		conf["onlyReadManagersChat"] = not conf["onlyReadManagersChat"]
+		self.menu.onlyReadManagersChat.Check(conf["onlyReadManagersChat"])
+
 	def toggleReadChatGiftSponser(self, evt):
-		conf['readChatGiftSponser'] = not conf['readChatGiftSponser']
-		self.menu.readChatGiftSponser.Check(conf['readChatGiftSponser'])
-	
+		conf["readChatGiftSponser"] = not conf["readChatGiftSponser"]
+		self.menu.readChatGiftSponser.Check(conf["readChatGiftSponser"])
+
 	def toggleOmitChatGraphic(self, evt):
-		conf['omitChatGraphic'] = not conf['omitChatGraphic']
-		self.menu.omitChatGraphic.Check(conf['omitChatGraphic'])
-	
+		conf["omitChatGraphic"] = not conf["omitChatGraphic"]
+		self.menu.omitChatGraphic.Check(conf["omitChatGraphic"])
+
 	def toggleInfoCardPrompt(self, evt):
-		conf['infoCardPrompt'] = not conf['infoCardPrompt']
-		self.menu.infoCardPrompt.Check(conf['infoCardPrompt'])
-	
+		conf["infoCardPrompt"] = not conf["infoCardPrompt"]
+		self.menu.infoCardPrompt.Check(conf["infoCardPrompt"])
+
 	# 聯絡開發者
 	def contactUseWhatsApp(self, evt):
-		webbrowser.open('https://wa.me/+886925285060')
-	
+		webbrowser.open("https://wa.me/+886925285060")
+
 	def contactUseLine(self, evt):
-		api.copyToClip('Maxe0310', notify=True)
-	
+		api.copyToClip("Maxe0310", notify=True)
+
 	def contactUseDiscord(self, evt):
-		api.copyToClip('maxe0310', notify=True)
-	
+		api.copyToClip("maxe0310", notify=True)
+
 	def contactUseFacebook(self, evt):
-		webbrowser.open('https://www.facebook.com/profile.php?id=100002631752665')
-	
+		webbrowser.open("https://www.facebook.com/profile.php?id=100002631752665")
+
 	def contactUseQq(self, evt):
-		webbrowser.open('tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=2231691423')
-	
+		webbrowser.open("tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=2231691423")
+
 	def contactUseX(self, evt):
-		webbrowser.open('https://www.x.com/Maxe0310')
-	
+		webbrowser.open("https://www.x.com/Maxe0310")
+
 	def openPlatformPage(self, evt):
 		url = evt.GetEventObject().GetHelpString(evt.GetId())
 		webbrowser.open(url)
 
 	def onCrunchyrollTMChrome(self, evt):
 		from .subtitleExtractors.crunchyroll import Crunchyroll
-		Crunchyroll.installTampermonkey('chrome')
+
+		Crunchyroll.installTampermonkey("chrome")
 
 	def onCrunchyrollTMFirefox(self, evt):
 		from .subtitleExtractors.crunchyroll import Crunchyroll
-		Crunchyroll.installTampermonkey('firefox')
+
+		Crunchyroll.installTampermonkey("firefox")
 
 	def onCrunchyrollTMEdge(self, evt):
 		from .subtitleExtractors.crunchyroll import Crunchyroll
-		Crunchyroll.installTampermonkey('msedge')
+
+		Crunchyroll.installTampermonkey("msedge")
 
 	def onCrunchyrollInstallScript(self, evt):
 		from .subtitleExtractors.crunchyroll import Crunchyroll
+
 		Crunchyroll.installUserscript()
 
 	def onCrunchyrollHelp(self, evt):
 		ui.browseableMessage(
-			_('Crunchyroll Subtitle Support Setup\n\nStep 1: Install Tampermonkey\nIn the menu, click the button for your browser\n(Chrome, Firefox or Edge).\nInstall the Tampermonkey extension from the page that opens.\n\nStep 2: Install the script\nClick "Install script". A page opens in your browser and\nTampermonkey will automatically prompt you to install.\nClick "Install", then close the tab.\n\nStep 3: Use\nOpen a video on Crunchyroll with subtitles enabled.\nPress NVDA+Y to start reading subtitles.\n\nNote: The script works with Chrome, Firefox and Edge.'),
-			_('Crunchyroll - Help')
+			_(
+				'Crunchyroll Subtitle Support Setup\n\nStep 1: Install Tampermonkey\nIn the menu, click the button for your browser\n(Chrome, Firefox or Edge).\nInstall the Tampermonkey extension from the page that opens.\n\nStep 2: Install the script\nClick "Install script". A page opens in your browser and\nTampermonkey will automatically prompt you to install.\nClick "Install", then close the tab.\n\nStep 3: Use\nOpen a video on Crunchyroll with subtitles enabled.\nPress NVDA+Y to start reading subtitles.\n\nNote: The script works with Chrome, Firefox and Edge.',
+			),
+			_("Crunchyroll - Help"),
 		)
 
 	__gestures = {
-		'kb:nvda+y': 'toggleSwitch',
+		"kb:nvda+y": "toggleSwitch",
 	}

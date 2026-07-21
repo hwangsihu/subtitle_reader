@@ -1,52 +1,59 @@
-#coding=utf-8
+# coding=utf-8
+import addonHandler
+
+addonHandler.initTranslation()
 
 from . import SubtitleExtractor, SupportStatus
 from ..object_finder import find, search
 from ..compatible import role
 
+
 class Missevan(SubtitleExtractor):
 	info = {
-		'name': '猫耳FM',
-		'url': 'https://www.missevan.com/',
-		'status': SupportStatus.supported,
+		"name": _("MissEvan"),
+		"url": "https://www.missevan.com/",
+		"status": SupportStatus.supported,
 	}
-	url = r'.*missevan.com/sound/player\?id=.+'
+	url = r".*missevan.com/sound/player\?id=.+"
 	lastCollect = set()
 	collect = set()
 	collector = None
-	
+
 	def getVideoPlayer(self):
 		obj = self.main.focusObject
-		document = find(obj, 'parent', 'role', role('document'))
-		videoPlayer = find(document, 'firstChild', 'id', 'header')
+		document = find(obj, "parent", "role", role("document"))
+		videoPlayer = find(document, "firstChild", "id", "header")
 		return videoPlayer
-	
+
 	def getSubtitleContainer(self):
 		videoPlayer = self.main.videoPlayer
 		container = videoPlayer.next.firstChild.firstChild.next
 		return container
-	
+
 	def getSubtitle(self):
 		obj = self.main.subtitleContainer
 		if self.collector and not self.collector.isStopped:
 			return
-		
+
 		subtitle = self.collect - self.lastCollect
-		subtitle = ' | '.join(subtitle)
+		subtitle = " | ".join(subtitle)
 		self.onFoundSubtitle(subtitle)
 		self.lastCollect = self.collect
 		self.collect = set()
-		self.collector = search(obj.firstChild, self.condition, child=False, onFound=self.onFound, continueOnFound=True)
-		
+		self.collector = search(
+			obj.firstChild,
+			self.condition,
+			child=False,
+			onFound=self.onFound,
+			continueOnFound=True,
+		)
+
 	def condition(self, obj):
-		return 'b-danmaku-center' in obj.IA2Attributes.get('class', '')
-	
+		return "b-danmaku-center" in obj.IA2Attributes.get("class", "")
+
 	def onFound(self, obj):
 		obj = obj.firstChild
 		if obj:
 			name = obj.name
 			if name:
 				self.collect.add(obj.name)
-			
-		
-	

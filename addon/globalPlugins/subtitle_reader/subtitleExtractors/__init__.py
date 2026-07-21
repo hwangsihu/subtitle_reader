@@ -5,101 +5,99 @@ from ..compatible import role
 
 
 class SubtitleExtractor(object):
-	'''
+	"""
 	影音平台資訊：
 		- name: 影音平台名稱
 		- url: 影音平台網址
 		- status: 影音平台狀態
-	'''
+	"""
+
 	info = {}
-	
+
 	# 正規表達式，使用視窗標題或者網址，判斷焦點是否位於影音平台（方法二選一）。
-	windowTitle = ''
-	url = ''
-	
+	windowTitle = ""
+	url = ""
+
 	# 自訂判斷平台方法，建議確定視窗標題與網址皆無法使用時才使用此法。
 	@staticmethod
 	def customMatchPlatform() -> bool:
 		return False
-	
-	
+
 	extractors = []
-	
+
 	@classmethod
 	def initialize(cls):
 		# 發現並載入所有 SubtitleExtractor 類別
 		for _, module_name, _ in pkgutil.iter_modules(__path__):
-			module = importlib.import_module(f"{__name__}.{module_name}")
-		
-	
+			importlib.import_module(f"{__name__}.{module_name}")
+
 	def __init_subclass__(cls) -> None:
 		# 當有新的 SubtitleExtractor 子類別被定義時，將其加入 extractors 列表
 		super().__init_subclass__()
 		cls.extractors.append(cls)
-	
+
 	def __init__(self, main, onFoundSubtitle=None):
 		self.main = main
 		if not onFoundSubtitle:
 			onFoundSubtitle = main.processSubtitle
-		
+
 		self.onFoundSubtitle = onFoundSubtitle
 		self.searchingSubtitle = False
-	
+
 	# 中指方法，當焦點改變，重新取得字幕平台前會被呼叫。
 	def terminate(self):
 		pass
-	
+
 	def getVideoPlayer(self):
 		raise NotImplementedError
-	
+
 	def getSubtitleContainer(self):
 		raise NotImplementedError
-	
+
 	def msedgeGetSubtitleContainer(self):
 		# Edge 取得字幕容器的方式，通常與 Chrome 相同，故實做一個通用方法。
 		return self.chromeGetSubtitleContainer()
-	
+
 	def braveGetSubtitleContainer(self):
 		# Brave 取得字幕容器的方法也與 Chrome 相同。
 		return self.chromeGetSubtitleContainer()
-	
+
 	def onReadingSubtitle(self):
 		pass
-	
+
 	def msedgeGetSubtitle(self, obj):
 		return self.chromeGetSubtitle(obj)
-	
+
 	def braveGetSubtitle(self, obj):
 		return self.chromeGetSubtitle(obj)
-	
+
 	# Yandex 瀏覽器
 	def browserGetSubtitle(self, obj):
 		return self.chromeGetSubtitle(obj)
-	
+
 	def getSubtitle(self, obj=None):
-		subtitle = ''
+		subtitle = ""
 		if obj is None:
 			obj = self.main.subtitleContainer
-		
+
 		while obj and not obj.name:
 			obj = obj.firstChild
-		
+
 		pobj = obj
 		while obj:
 			if obj.name:
-				subtitle += obj.name + ' | \r\n'
-			
+				subtitle += obj.name + " | \r\n"
+
 			pobj = obj
 			obj = obj.next
-		
-		if not pobj or pobj.role == role('unknown'):
+
+		if not pobj or pobj.role == role("unknown"):
 			return
-		
+
 		return subtitle
-	
+
 
 # 平台支援狀態
 class SupportStatus(object):
-	invalid = _('Failure')
-	supported = _('Success')
-
+	invalid = _("Failure")
+	supported = _("Success")
