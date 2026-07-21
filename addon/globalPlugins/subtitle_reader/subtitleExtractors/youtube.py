@@ -320,7 +320,7 @@ class Youtube(SubtitleExtractor):
 		if bool(votingObj) != self.voting:
 			self.voting = bool(votingObj)
 			if self.voting:
-				ui.message(_('Survey：'))
+				ui.message(_('Survey:'))
 				search(votingObj, lambda obj: True, self.onSearchVoting, continueOnFound=True)
 			
 		

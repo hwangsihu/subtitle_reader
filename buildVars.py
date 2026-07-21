@@ -20,7 +20,7 @@ addon_info = AddonInfo(
 	addon_summary=_('Subtitle reader'),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
-	addon_description=_('This add-on let NVDA read out the subtitles when the focus is on the movie player on the Web page。'),
+	addon_description=_('This add-on let NVDA read out the subtitles when the focus is on the movie player on the Web page.'),
 	# version
 	# 1. 功能調整或錯誤修復為小數點後兩位。
 	# 2. 新的影音平台支援為小數點後一位，並且將小數點第二位歸零。

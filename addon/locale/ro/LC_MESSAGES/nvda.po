@@ -58,7 +58,7 @@ msgid "Reading in the background (&B)"
 msgstr "Citire în fundal (&B)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:31
-msgid "Opciones for Youtube"
+msgid "Youtube settings"
 msgstr "Setări YouTube"
 
 #. Translators: toggle Youtube menu item whether to read the chat message when
@@ -147,7 +147,7 @@ msgid "Supported video platforms (&P)"
 msgstr "Platforme video suportate (&P)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:80
-msgid " State："
+msgid " State:"
 msgstr " Status:"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:86
@@ -195,7 +195,7 @@ msgstr "Normal/Activ"
 #. Translators: This is a prompt to confirm that the reader is the latest
 #. version
 #: addon\globalPlugins\subtitle_reader\update.py:134
-msgid "You have updated to the latest version, enjoy using it！"
+msgid "You have updated to the latest version, enjoy using it!"
 msgstr "Ați fost actualizat la cea mai recentă versiune, vizionare plăcută!"
 
 #: addon\globalPlugins\subtitle_reader\update.py:134
@@ -218,5 +218,5 @@ msgid "The update download has failed"
 msgstr "Descărcarea actualizării a eșuat"
 
 #: addon\globalPlugins\subtitle_reader\youtube.py:321
-msgid "Survey："
+msgid "Survey:"
 msgstr "Sondaj de opinie:"

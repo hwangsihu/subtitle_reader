@@ -30,7 +30,7 @@ class Menu(wx.Menu):
 		self.backgroundReading.Check(True)
 		
 		self.youtube = wx.Menu()
-		self.youtubeMenuItem = self.AppendSubMenu(self.youtube, _('Opciones for Youtube'))
+		self.youtubeMenuItem = self.AppendSubMenu(self.youtube, _('Youtube settings'))
 		
 		# Translators: toggle Youtube menu item whether to read the chat message when the new chat message already appeared
 		self.readChat = self.youtube.AppendCheckItem(wx.ID_ANY, _('Read chat (&R)'))
@@ -96,7 +96,7 @@ class Menu(wx.Menu):
 		self.platforms = wx.Menu()
 		self.platformsMenuItem = self.AppendSubMenu(self.platforms, _('Supported video platforms (&P)'))
 		for platform in SubtitleExtractor.extractors:
-			self.platforms.Append(wx.ID_ANY, platform.info['name'] + _(' State：') + platform.info['status'], platform.info['url'])
+			self.platforms.Append(wx.ID_ANY, platform.info['name'] + _(' State:') + platform.info['status'], platform.info['url'])
 		
 	
 

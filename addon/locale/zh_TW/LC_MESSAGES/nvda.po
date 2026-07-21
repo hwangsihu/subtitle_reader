@@ -54,7 +54,7 @@ msgid "Reading in the background (&B)"
 msgstr "背景閱讀 (&B)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:30
-msgid "Opciones for Youtube"
+msgid "Youtube settings"
 msgstr "Youtube 相關設定"
 
 #. Translators: toggle Youtube menu item whether to read the chat message when
@@ -133,7 +133,7 @@ msgid "Supported video platforms (&P)"
 msgstr "支援影音平台 (&P)"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:77
-msgid " State："
+msgid " State:"
 msgstr " 狀態："
 
 #: addon\globalPlugins\subtitle_reader\gui.py:83
@@ -181,7 +181,7 @@ msgstr "正常"
 #. Translators: This is a prompt to confirm that the reader is the latest
 #. version
 #: addon\globalPlugins\subtitle_reader\update.py:130
-msgid "You have updated to the latest version, enjoy using it！"
+msgid "You have updated to the latest version, enjoy using it!"
 msgstr "您已升級到最新版本，祝您觀影愉快！"
 
 #: addon\globalPlugins\subtitle_reader\update.py:130
@@ -204,7 +204,7 @@ msgid "The update download has failed"
 msgstr "下載更新失敗"
 
 #: addon\globalPlugins\subtitle_reader\youtube.py:321
-msgid "Survey："
+msgid "Survey:"
 msgstr "意見調查："
 
 #. Add-on description
@@ -213,7 +213,7 @@ msgstr "意見調查："
 #: buildVars.py:26
 msgid ""
 "This add-on let NVDA read out the subtitles when the focus is on the movie "
-"player on the Web page。"
+"player on the Web page."
 msgstr "當焦點位於網頁上的影片播放器時，讓 NVDA 讀出字幕。"
 
 #. Translators: Crunchyroll setup submenu

@@ -123,7 +123,7 @@ class Update:
 	def isLatestVersion(self):
 		play(soundPath + r'\isLatestVersion.ogg')
 		# Translators: This is a prompt to confirm that the reader is the latest version
-		wx.MessageBox(_('You have updated to the latest version, enjoy using it！'), _('congratulations'), style=wx.ICON_EXCLAMATION)
+		wx.MessageBox(_('You have updated to the latest version, enjoy using it!'), _('congratulations'), style=wx.ICON_EXCLAMATION)
 	
 	def checkError(self, error):
 		play(soundPath + r'\downloadError.ogg')
