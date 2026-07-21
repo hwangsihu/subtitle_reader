@@ -24,7 +24,7 @@ license = {file = "LICENSE"}
 # build, translate, or lint the add-on. They are declared as PEP 735 dependency groups.
 dependencies = []
 [project.urls]
-Repository = "https://github.com/maxe-hsieh/subtitle_reader"
+Repository = "https://github.com/hwangsihu/subtitle_reader"
 
 # PEP 735 dependency groups. `uv sync` installs the `dev` group by default, which
 # pulls in every tool needed to build, translate, and lint the add-on.
