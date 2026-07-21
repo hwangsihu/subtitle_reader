@@ -100,6 +100,6 @@ class SubtitleExtractor(object):
 
 # 平台支援狀態
 class SupportStatus(object):
-	invalid = _('失效')
-	supported = _('正常')
+	invalid = _('Failure')
+	supported = _('Success')
 

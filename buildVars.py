@@ -17,10 +17,10 @@ addon_info = AddonInfo(
 	# Add-on summary/title, usually the user visible name of the add-on
 	# Translators: Summary/title for this add-on
 	# to be shown on installation and add-on information found in add-on store
-	addon_summary=_("字幕閱讀器"),
+	addon_summary=_('Subtitle reader'),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
-	addon_description=_("當焦點位於網頁上的影片播放器時，讓 NVDA 讀出字幕。"),
+	addon_description=_('This add-on let NVDA read out the subtitles when the focus is on the movie player on the Web page。'),
 	# version
 	# 1. 功能調整或錯誤修復為小數點後兩位。
 	# 2. 新的影音平台支援為小數點後一位，並且將小數點第二位歸零。
@@ -77,7 +77,7 @@ excludedFiles: list[str] = []
 # If your add-on is written in a language other than english, modify this variable.
 # For example, set baseLanguage to "es" if your add-on is primarily written in spanish.
 # You must also edit .gitignore file to specify base language files to be ignored.
-baseLanguage: str = "zh_TW"
+baseLanguage: str = "en"
 
 # Markdown extensions for add-on documentation
 # Most add-ons do not require additional Markdown extensions.
