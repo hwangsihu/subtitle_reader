@@ -25,9 +25,9 @@ from globalVars import appArgs
 import ui
 
 soundPath = os.path.dirname(__file__) + r'\assets\sounds'
-projectUrl = 'https://raw.githubusercontent.com/maxe-hsieh/subtitle_reader/main'
-sourceUrl = 'https://raw.githubusercontent.com/maxe-hsieh/subtitle_reader/main/addon'
-assetUrl = 'https://github.com/maxe-hsieh/subtitle_reader/releases/latest/download'
+projectUrl = 'https://raw.githubusercontent.com/hwangsihu/subtitle_reader/main'
+sourceUrl = 'https://raw.githubusercontent.com/hwangsihu/subtitle_reader/main/addon'
+assetUrl = 'https://github.com/hwangsihu/subtitle_reader/releases/latest/download'
 tempDir = os.getenv('temp')
 
 class Update:
@@ -60,7 +60,7 @@ class Update:
 		os.system('start ' + filePath)
 	
 	def openLatestChangeLog(self, event):
-		filePath = 'https://github.com/maxe-hsieh/subtitle_reader/blob/main/addon/doc/zh_TW/changelog.md#%E6%9B%B4%E6%96%B0%E6%97%A5%E8%AA%8C'
+		filePath = 'https://github.com/hwangsihu/subtitle_reader/blob/main/addon/doc/zh_TW/changelog.md#%E6%9B%B4%E6%96%B0%E6%97%A5%E8%AA%8C'
 		os.system('start ' + filePath)
 	
 	def toggleCheckAutomatic(self, event):

@@ -33,9 +33,9 @@ addon_info = AddonInfo(
 	# Author(s)
 	addon_author="福恩 <maxe@mail.batol.net>",
 	# URL for the add-on documentation support
-	addon_url="https://github.com/maxe-hsieh/subtitle_reader",
+	addon_url="https://github.com/hwangsihu/subtitle_reader",
 	# URL for the add-on repository where the source code can be found
-	addon_sourceURL="https://github.com/maxe-hsieh/subtitle_reader",
+	addon_sourceURL="https://github.com/hwangsihu/subtitle_reader",
 	# Documentation file name
 	addon_docFileName="readme.html",
 	# Minimum NVDA version supported (e.g. "2019.3.0", minor version is optional)
@@ -49,7 +49,7 @@ addon_info = AddonInfo(
 	# Add-on license such as GPL 2
 	addon_license="GPL 3",
 	# URL for the license document the ad-on is licensed under
-	addon_licenseURL="https://github.com/maxe-hsieh/subtitle_reader/blob/main/LICENSE",
+	addon_licenseURL="https://github.com/hwangsihu/subtitle_reader/blob/main/LICENSE",
 )
 
 # Define the python files that are the sources of your add-on.
