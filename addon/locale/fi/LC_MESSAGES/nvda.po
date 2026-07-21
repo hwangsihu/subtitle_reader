@@ -36,7 +36,7 @@ msgid "Reading in the background (&B)"
 msgstr "Lukeminen t&austalla"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:31
-msgid "Opciones for Youtube"
+msgid "Youtube settings"
 msgstr "YouTube-asetukset"
 
 #. Translators: toggle Youtube menu item whether to read the chat message when
@@ -143,7 +143,7 @@ msgid "Supported video platforms (&P)"
 msgstr "Tuetut v&ideoalustat"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:97
-msgid " State："
+msgid " State:"
 msgstr "Tila:"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:103
@@ -190,13 +190,13 @@ msgstr "Tuettu"
 
 #: addon\globalPlugins\subtitle_reader\twitch.py:201
 #: addon\globalPlugins\subtitle_reader\youtube.py:323
-msgid "Survey："
+msgid "Survey:"
 msgstr "Mielipidekysely:"
 
 #. Translators: This is a prompt to confirm that the reader is the latest
 #. version
 #: addon\globalPlugins\subtitle_reader\update.py:126
-msgid "You have updated to the latest version, enjoy using it！"
+msgid "You have updated to the latest version, enjoy using it!"
 msgstr "Olet päivittänyt viimeisimpään versioon."
 
 #: addon\globalPlugins\subtitle_reader\update.py:126
@@ -288,6 +288,6 @@ msgstr "Crunchyrollin käyttöohje"
 #: buildVars.py:26
 msgid ""
 "This add-on let NVDA read out the subtitles when the focus is on the movie "
-"player on the Web page。"
+"player on the Web page."
 msgstr ""
 "Lukee tekstitykset, kun kohdistus on verkkopohjaisessa videosoittimessa."

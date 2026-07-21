@@ -46,7 +46,7 @@ msgid "Reading in the background (&B)"
 msgstr "Читать субтитры в фоновом режиме (&B)"
 
 #: addon/globalPlugins/subtitle_reader/gui.py:31
-msgid "Opciones for Youtube"
+msgid "Youtube settings"
 msgstr "Настройки, связанные с Youtube"
 
 #: addon/globalPlugins/subtitle_reader/gui.py:34
@@ -116,7 +116,7 @@ msgid "Supported video platforms (&P)"
 msgstr "Поддержать разработку дополнения  (&P)"
 
 #: addon/globalPlugins/subtitle_reader/gui.py:80
-msgid " State："
+msgid " State:"
 msgstr " состояние："
 
 #: addon/globalPlugins/subtitle_reader/gui.py:86
@@ -156,7 +156,7 @@ msgid "Success"
 msgstr "успешно"
 
 #: addon/globalPlugins/subtitle_reader/update.py:135
-msgid "You have updated to the latest version, enjoy using it！"
+msgid "You have updated to the latest version, enjoy using it!"
 msgstr "Вы обновили дополнение до последней версии. Приятного использования！"
 
 #: addon/globalPlugins/subtitle_reader/update.py:135
@@ -177,13 +177,13 @@ msgid "The update download has failed"
 msgstr "Не удалось загрузить обновление"
 
 #: addon/globalPlugins/subtitle_reader/youtube.py:321
-msgid "Survey："
+msgid "Survey:"
 msgstr "Опрос мнений："
 
 #: buildVars.py:26
 msgid ""
 "This add-on let NVDA read out the subtitles when the focus is on the movie "
-"player on the Web page。"
+"player on the Web page."
 msgstr ""
 "Когда фокус находится на проигрывателе видео на веб-странице, это дополнение"
 " позволяет NVDA читать субтитры к проигрываемому видео。"

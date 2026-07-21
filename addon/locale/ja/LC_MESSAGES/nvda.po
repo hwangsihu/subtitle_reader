@@ -59,7 +59,7 @@ msgid "Reading in the background (&B)"
 msgstr "バックグラウンドで字幕を読み上げる"
 
 #: addon\globalPlugins\subtitle_reader\gui.py:28
-msgid "Opciones for Youtube"
+msgid "Youtube settings"
 msgstr "Youtubeの設定"
 
 #. Translators: toggle Youtube menu item whether to read the chat message when
@@ -139,7 +139,7 @@ msgstr "later"
 #. Translators: This is a prompt to confirm that the reader is the latest
 #. version
 #: addon\globalPlugins\subtitle_reader\update.py:129
-msgid "You have updated to the latest version, enjoy using it！"
+msgid "You have updated to the latest version, enjoy using it!"
 msgstr "更新が完了しました。ビデオをお楽しみください。"
 
 #: addon\globalPlugins\subtitle_reader\update.py:129
@@ -167,5 +167,5 @@ msgstr "更新のダウンロードに失敗しました。"
 #: buildVars.py:26
 msgid ""
 "This add-on let NVDA read out the subtitles when the focus is on the movie "
-"player on the Web page。"
+"player on the Web page."
 msgstr "ウェブ動画プレイヤーにフォーカスしている時にNVDAの字幕読み上げをサポートします。"
