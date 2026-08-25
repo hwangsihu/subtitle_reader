@@ -102,6 +102,8 @@ logger-objects = ["logHandler.log"]
 # sconscripts contains many inbuilt functions not recognised by the lint,
 # so ignore F821.
 "sconstruct" = ["F821"]
+"addon/globalPlugins/subtitle_reader/pybass/*.py" = ["F403", "E401"]
+"addon/globalPlugins/subtitle_reader/sound.py" = ["F403", "F405"]
 
 [tool.pyright]
 venvPath = ".venv"

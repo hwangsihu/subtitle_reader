@@ -15,6 +15,7 @@ addonHandler.initTranslation()
 
 import globalPluginHandler
 import api
+from . import sound
 from globalVars import appArgs
 from logHandler import log
 from comtypes import COMError
@@ -71,6 +72,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.readSubtitleTimer = nvdaGui.NonReEntrantTimer(self.readSubtitle)
 		self.startReadSubtitleTime = 0
 
+		sound.init()
+
 		self.update = Update()
 		# 初始化選單
 		self.initMenu()
@@ -126,6 +129,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		conf.write()
 		self.potPlayer.terminate()
 		gui.toolsMenu.DestroyItem(self.menu.menuItem.Id)
+
+		sound.free()
 
 	@staticmethod
 	def isRunningOnSecureDesktop():

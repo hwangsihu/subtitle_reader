@@ -17,12 +17,14 @@ else:
 import ssl
 from threading import Thread
 
+from .sound import play
 
 from .version import version
 from .config import conf
 from .gui import UpdateDialog, wx, gui as nvdaGui
 from globalVars import appArgs
 
+soundPath = os.path.dirname(__file__) + r"\assets\sounds"
 projectUrl = "https://raw.githubusercontent.com/hwangsihu/subtitle_reader/main"
 sourceUrl = "https://raw.githubusercontent.com/hwangsihu/subtitle_reader/main/addon"
 assetUrl = "https://github.com/hwangsihu/subtitle_reader/releases/latest/download"
@@ -47,6 +49,7 @@ class Update:
 
 	def manualCheck(self, event):
 		conf["skipVersion"] = "0"
+		play(soundPath + r"\updateChecking.ogg")
 		self.execute()
 
 	def openCurrentChangeLog(self, event):
@@ -94,6 +97,7 @@ class Update:
 			return
 
 		self.new = info
+		play(soundPath + r"\newVersionFound.ogg")
 		wx.CallAfter(self.showDialog)
 
 	def getNewVersion(self):
@@ -114,6 +118,7 @@ class Update:
 		return info
 
 	def isLatestVersion(self):
+		play(soundPath + r"\isLatestVersion.ogg")
 		# Translators: This is a prompt to confirm that the reader is the latest version
 		wx.MessageBox(
 			_("You have updated to the latest version, enjoy using it!"),
@@ -122,6 +127,7 @@ class Update:
 		)
 
 	def checkError(self, error):
+		play(soundPath + r"\downloadError.ogg")
 		# Translators: This is the prompt when checking for updates fails
 		wx.MessageBox(_("Unable to check for updates") + ": " + str(error), _("Error"), style=wx.ICON_ERROR)
 
@@ -140,6 +146,7 @@ class Update:
 		if self.downloadThreadObj and self.downloadThreadObj.is_alive():
 			return
 
+		play(soundPath + r"\updating.ogg")
 		self.dialog.changelogText.SetFocus()
 		self.downloadThreadObj = Thread(target=self.downloadThread)
 		self.downloadThreadObj.start()
@@ -152,6 +159,7 @@ class Update:
 				tempDir + "\\" + filename,
 				reportHook=self.updateProgress,
 			)
+			play(soundPath + r"\downloadCompleted.ogg")
 			self.dialog.Close()
 			os.system("start " + file[0])
 		except Exception as e:
@@ -184,6 +192,7 @@ class Update:
 		wx.CallAfter(self.dialog.progress.SetValue, percent)
 
 	def downloadError(self, error):
+		play(soundPath + r"\downloadError.ogg")
 		# Translators: This is the prompt when downloading updates fails
 		wx.MessageBox(
 			_("The update download has failed") + ": " + str(error),
@@ -193,10 +202,12 @@ class Update:
 		)
 
 	def skipVersion(self, event):
+		play(soundPath + r"\skipVersion.ogg")
 		conf["skipVersion"] = self.new["version"]
 		self.dialog.Close()
 
 	def later(self, event):
+		play(soundPath + r"\closeDialog.ogg")
 		self.dialog.Close()
 
 	def onClose(self, event):
