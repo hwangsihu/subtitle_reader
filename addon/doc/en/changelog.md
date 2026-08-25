@@ -1,17 +1,25 @@
 # Change log
 
+## V3.82, 2026.8.25
+
+1. Restore the sound effects, without the update background music.
+2. Re-encode the sounds to reduce the add-on size.
+3. Keep the original settings file name.
+4. Update BASS to 2.4.18.3.
+5. Fix the update download.
+
+---
+
 ## V3.81, 2026.8.25
 
 First release of this fork, based on subtitle reader V3.8 by 福恩.
 
-### Changes
-
-1. Migrated to the latest NVDA add-on template (uv, prek, custom speech dictionary support).
-2. Switched the base language to English; the original Traditional Chinese now ships as a translation.
-3. Removed the update background music easter egg and all sound playback from the add-on.
-4. Localized the remaining hardcoded Chinese strings, such as platform names and messages.
-5. Update checks and add-on metadata now point at this fork.
-6. The add-on identifier is now subtitle_reader_fork, so it installs alongside the original add-on and starts with fresh settings.
+1. Migrate to the latest NVDA add-on template.
+2. Switch the base language to English, and ship Traditional Chinese as a translation.
+3. Remove the update background music.
+4. Translate the remaining Chinese strings.
+5. Point update checks and add-on details at this fork.
+6. Rename the add-on to subtitle_reader_fork, so it installs alongside the original.
 
 ---
 

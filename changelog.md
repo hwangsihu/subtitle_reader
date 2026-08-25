@@ -1,12 +1,7 @@
-Fork release maintained at https://github.com/hwangsihu/subtitle_reader
-
 ### Changes
 
-1. Migrated to the latest NVDA add-on template (uv, prek, custom speech dictionary support).
-2. Switched the base language to English; the original Traditional Chinese now ships as a translation.
-3. Removed the update background music easter egg and all sound playback from the add-on.
-4. Localized the remaining hardcoded Chinese strings, such as platform names and messages.
-5. Update checks and add-on metadata now point at this fork.
-6. The add-on identifier is now subtitle_reader_fork, so it installs alongside the original add-on and starts with fresh settings.
-
----
+1. Restore the sound effects, without the update background music.
+2. Re-encode the sounds to reduce the add-on size.
+3. Keep the original settings file name.
+4. Update BASS to 2.4.18.3.
+5. Fix the update download.
