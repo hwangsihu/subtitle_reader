@@ -17,7 +17,7 @@ addon_info = AddonInfo(
 	# Add-on summary/title, usually the user visible name of the add-on
 	# Translators: Summary/title for this add-on
 	# to be shown on installation and add-on information found in add-on store
-	addon_summary=_('Subtitle reader'),
+	addon_summary=_('Subtitle reader (fork)'),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-on store
 	addon_description=_('This add-on let NVDA read out the subtitles when the focus is on the movie player on the Web page.'),

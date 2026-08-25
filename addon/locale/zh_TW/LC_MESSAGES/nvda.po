@@ -310,3 +310,8 @@ msgstr "猫耳FM"
 #. Announced for a chat banner
 msgid "Chat banner"
 msgstr "聊天室橫幅"
+
+#. Translators: Summary/title for this add-on, shown on installation and in
+#. the add-on store
+msgid "Subtitle reader (fork)"
+msgstr "字幕閱讀器（分支版）"
