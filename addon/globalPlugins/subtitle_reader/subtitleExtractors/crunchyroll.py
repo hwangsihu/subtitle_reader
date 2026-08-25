@@ -49,7 +49,7 @@ class Crunchyroll(SubtitleExtractor):
 		if not os.path.exists(srcPath):
 			return False
 		try:
-			tmpDir = os.path.join(tempfile.gettempdir(), "subtitle_reader")
+			tmpDir = os.path.join(tempfile.gettempdir(), "subtitle_reader_fork")
 			if not os.path.exists(tmpDir):
 				os.makedirs(tmpDir)
 

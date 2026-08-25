@@ -50,11 +50,11 @@ class Update:
 		self.execute()
 
 	def openCurrentChangeLog(self, event):
-		filePath = appArgs.configPath + r"\addons\subtitle_reader\doc\zh_TW\changelog.html"
+		filePath = appArgs.configPath + r"\addons\subtitle_reader_fork\doc\en\changelog.html"
 		os.system("start " + filePath)
 
 	def openLatestChangeLog(self, event):
-		filePath = "https://github.com/hwangsihu/subtitle_reader/blob/main/addon/doc/zh_TW/changelog.md#%E6%9B%B4%E6%96%B0%E6%97%A5%E8%AA%8C"
+		filePath = "https://github.com/hwangsihu/subtitle_reader/blob/main/addon/doc/en/changelog.md"
 		os.system("start " + filePath)
 
 	def toggleCheckAutomatic(self, event):
@@ -107,7 +107,7 @@ class Update:
 
 		info["version"] = newVersion
 
-		with urlopen(sourceUrl + "/doc/zh_TW/changelog.md") as res:
+		with urlopen(sourceUrl + "/doc/en/changelog.md") as res:
 			text = res.read().decode("utf-8")
 
 		info["changelog"] = text
@@ -145,7 +145,7 @@ class Update:
 		self.downloadThreadObj.start()
 
 	def downloadThread(self):
-		filename = "subtitle_reader.nvda-addon"
+		filename = "subtitle_reader_fork.nvda-addon"
 		try:
 			file = self.downloadFile(
 				assetUrl + "/" + filename,

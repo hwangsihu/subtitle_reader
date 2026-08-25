@@ -1,4 +1,8 @@
-Fork release maintained at https://github.com/hwangsihu/subtitle_reader
+# Change log
+
+## V3.81, 2026.8.25
+
+First release of this fork, based on subtitle reader V3.8 by 福恩.
 
 ### Changes
 
@@ -10,3 +14,5 @@ Fork release maintained at https://github.com/hwangsihu/subtitle_reader
 6. The add-on identifier is now subtitle_reader_fork, so it installs alongside the original add-on and starts with fresh settings.
 
 ---
+
+Earlier history is kept in the Traditional Chinese change log at addon/doc/zh_TW/changelog.md.

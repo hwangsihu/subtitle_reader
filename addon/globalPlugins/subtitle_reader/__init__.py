@@ -33,7 +33,7 @@ nvdaGui = gui.gui
 
 wx = gui.wx
 
-conf.load(appArgs.configPath + r"\subtitle_reader.json")
+conf.load(appArgs.configPath + r"\subtitle_reader_fork.json")
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
