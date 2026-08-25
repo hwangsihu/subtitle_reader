@@ -19,7 +19,7 @@ from threading import Thread
 
 from .sound import play
 
-from .version import version
+from .version import version, addon
 from .config import conf
 from .gui import UpdateDialog, wx, gui as nvdaGui
 from globalVars import appArgs
@@ -152,7 +152,7 @@ class Update:
 		self.downloadThreadObj.start()
 
 	def downloadThread(self):
-		filename = "subtitle_reader_fork.nvda-addon"
+		filename = "{}-{}.nvda-addon".format(addon.name, self.new["version"])
 		try:
 			file = self.downloadFile(
 				assetUrl + "/" + filename,
